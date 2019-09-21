@@ -172,4 +172,6 @@ TEXT XIFRAT:  ACCCCA BDAA CBCC BBBC BBAA ACCCBFBCDABCCCCBDA, AACEDCAEDADB DBAEDF
 TEXT ORIGINAL:  com ja no hi ha colisions, aquest text es pot descodificar perfectament.
 ```
 
+### Xifrat Rail Fence
 
+[Veure fitxer railFence.py](https://github.com/fxbp/spd-ex1/blob/master/railFence.py)
