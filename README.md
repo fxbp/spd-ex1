@@ -175,3 +175,65 @@ TEXT ORIGINAL:  com ja no hi ha colisions, aquest text es pot descodificar perfe
 ### Xifrat Rail Fence
 
 [Veure fitxer railFence.py](https://github.com/fxbp/spd-ex1/blob/master/railFence.py)
+
+De la mateixa forma que el xifrat Polybios, en comptes d'utilitzar una taula de N rails per codificar i descodificar el missatge, s'utilitza un mètode de càlcul de posicions per simular aquesta taula.
+
+S'utilitza la seguent frase (vista a classe) sense espais per explicar el funcionament del mètode:
+seraelpropermati
+
+Creació de la taula de rail = 4
+
+| s |   |   |   |   |   | p |   |   |   |   |   | m |   |   |   |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+|   | e |   |   |   | l |   | r |   |   |   | r |   | a |   |   |
+|   |   | r |   | e |   |   |   | o |   | e |   |   |   | t |   |
+|   |   |   | a |   |   |   |   |   | p |   |   |   |   |   | i |
+
+Si s'observa la taula es pot trobar un patrò que permet calculàr quina seria la següent posició.
+En la primera fila podem trobar quin es el desplaçament des del primer caràcter fins el segon. Aquest es pot trobar a partir del nombre de rails. En aquest cas es de 6 posicions. 
+Es defineix un desplaçament de 2*nombre_rails -2
+Aquest desplaçament també es pot veure en l'última fila.
+
+Els rails intermitjos peró no segueixen aquesta regla. Com es pot observar hi ha 2 mides de desplaçament entre els caràcters d'un rail.
+S'observa el segon rail. De la 'e' a la 'l' hi ha un desplaçament de 4, mentre de de la 'l' a la 'r' hi ha un desplaçament de 2 posicions. El tercer rail també segueix aquest patró amb desplaçaments diferents.
+
+Podem trobar el primer desplaçament amb la mateixa formula anterior [2*nombre_rails-2] - num_rail_actual*2 
+El segon desplaçament s'obte amb num_rail_actual*2
+
+Nota: el numero de rail actual esta entre 0 (pel primer rail) i 3 (per l'últim)
+
+Comprovació:
+
+- Desplaçament e -l (segon rail): 
+```
+   (num segon rail = 1)
+   primer desplaçament = 2*4-2 - 2*1 = 4
+   
+   segon desplaçament = 2*1 = 2
+```
+
+Si es van alternant aquests desplaçaments es poden anar generan les posicions corresponents a cada rail.
+
+Veiem un exemple de la mateixa frase amb num_rails =7
+
+| s |   |   |   |   |   |   |   |   |   |   |   | m |   |   |   |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+|   | e |   |   |   |   |   |   |   |   |   | r |   | a |   |   |
+|   |   | r |   |   |   |   |   |   |   | e |   |   |   | t |   |
+|   |   |   | a |   |   |   |   |   | p |   |   |   |   |   | i |
+|   |   |   |   | e |   |   |   | o |   |   |   |   |   |   |   |
+|   |   |   |   |   | l |   | r |   |   |   |   |   |   |   |   |
+|   |   |   |   |   |   | p |   |   |   |   |   |   |   |   |   |
+
+S'observa el 3er rail:
+```
+   (num tercer rail = 2)
+   primer desplaçament = 2*7-2 - 2*2 = 8
+   
+   segon desplaçament = 2*2= 4
+```
+
+Es pot observar que des de la 'r' a la 'e' del 3er rail  hi ha 8 posicions. També de la 'e' a la 't' hi ha 4 posicions.
+
+Com es pot comprovar els desplaçaments calculats serveixen per a qualsevol nombre de rails.
+
