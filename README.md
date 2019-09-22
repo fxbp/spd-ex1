@@ -191,14 +191,14 @@ Creació de la taula de rail = 4
 
 Si s'observa la taula es pot trobar un patrò que permet calculàr quina seria la següent posició.
 En la primera fila podem trobar quin es el desplaçament des del primer caràcter fins el segon. Aquest es pot trobar a partir del nombre de rails. En aquest cas es de 6 posicions. 
-Es defineix un desplaçament de 2*nombre_rails -2
+Es defineix un desplaçament de 2xnombre_rails -2
 Aquest desplaçament també es pot veure en l'última fila.
 
 Els rails intermitjos peró no segueixen aquesta regla. Com es pot observar hi ha 2 mides de desplaçament entre els caràcters d'un rail.
 S'observa el segon rail. De la 'e' a la 'l' hi ha un desplaçament de 4, mentre de de la 'l' a la 'r' hi ha un desplaçament de 2 posicions. El tercer rail també segueix aquest patró amb desplaçaments diferents.
 
-Podem trobar el primer desplaçament amb la mateixa formula anterior [2*nombre_rails-2] - num_rail_actual*2 
-El segon desplaçament s'obte amb num_rail_actual*2
+Podem trobar el primer desplaçament amb la mateixa formula anterior [2xnombre_rails-2] - num_rail_actualx2 
+El segon desplaçament s'obte amb num_rail_actualx2
 
 Nota: el numero de rail actual esta entre 0 (pel primer rail) i 3 (per l'últim)
 
@@ -236,4 +236,85 @@ S'observa el 3er rail:
 Es pot observar que des de la 'r' a la 'e' del 3er rail  hi ha 8 posicions. També de la 'e' a la 't' hi ha 4 posicions.
 
 Com es pot comprovar els desplaçaments calculats serveixen per a qualsevol nombre de rails.
+
+S'utilitza la següent funció per obtenir la seguent posició segons aquests desplaçametns.
+
+desp sempre és 2xnum_rails-2
+diff val el desplaçament anterior. Es va alternant entre primer i segon desplaçament
+mida es la llargada de la cadena 
+```
+def obtenirNovaPosicio(posicio, rail, desp, diff, mida):
+    # calcula la seguent posicio en base al nombre de num_rails
+    if diff == 0:
+        diff = desp
+    # si diff = 0 es que som al primer o ultim rail, per tant hem de moure desp cada cop
+    posicio = posicio + diff
+    diff = desp-diff
+    # excepte el primer i ultim rail, tots els rails tenen 2 desplaçaments:
+    # el primer a desp - rail*2
+    # el segon a rail*2
+    # utilitza la variable diff per intercanviar aquest 2 desplaçaments
+    if posicio >= mida:
+        rail +=1;
+        posicio = rail
+        diff  = desp -2*rail
+
+    return posicio, rail, diff
+```
+
+Amb aquesta funció es pot simular la taula de forma que tant serveix per codificar el missatge com per descodificar. Només s'ha de tenir en compte les assignacions que es fan.
+
+Per codificar:
+A mida que es construeix el missatge codificar calcula la posició d'on sha de llegir el caracter al missatge original
+```
+for k in range(len(missatge)):
+        xifrat[k]= missatge[posicio]
+        posicio, rail, diff = obtenirNovaPosicio(posicio,rail, desp, diff, len(missatge))
+```
+
+Per descodificar:
+A mida que es llegeixen els caracters del missatge xifrat es calcula la posició on s'ha de posar al desxifrat
+```
+for k in range(len(missatge)):
+        desxifrat[posicio] = missatge[k]
+        posicio, rail, diff = obtenirNovaPosicio(posicio,rail, desp, diff, len(missatge))
+```
+r
+
+Tal i com esta pensada la formula només serveix per num_rails > 1. Tot i que no te massa sentit tenir 1 rail (el missatge codificat = original) es corregeix el desplaçament a 1 si es demana num_rails = 1.
+
+#### Proves
+
+Prova senzilla amb rails = 2
+
+```
+python railFence.py
+entreu un nombre natural corresponent al rail: 2
+Rail:  2
+entra el text que vols xifrar: hola
+TEXT XIFRAT:  hloa
+TEXT ORIGINAL:  hola
+```
+
+Prova amb el text vist a classe sense espais
+
+```
+python railFence.py
+entreu un nombre natural corresponent al rail: 4
+Rail:  4
+entra el text que vols xifrar: seraelpropermati
+TEXT XIFRAT:  spmelrrareoetapi
+TEXT ORIGINAL:  seraelpropermati
+```
+
+Prova del mateix text amb 7 rails
+
+```
+python railFence.py
+entreu un nombre natural corresponent al rail: 7
+Rail:  7
+entra el text que vols xifrar: seraelpropermati
+TEXT XIFRAT:  smeraretapieolrp
+TEXT ORIGINAL:  seraelpropermati
+```
 
