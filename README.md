@@ -290,6 +290,8 @@ r
 
 Tal i com esta pensada la formula només serveix per num_rails > 1. Tot i que no te massa sentit tenir 1 rail (el missatge codificat = original) es corregeix el desplaçament a 1 si es demana num_rails = 1.
 
+**NOTA:** Al tractarse d'un mètode de xifrat per transposició de càracters, el mètode propossat no discrimina entre lletres o simbols i ho transposa tot. Les codificacions resultants poden vairar si es compara amb un mètode que discrimini lletres i simbols.
+
 #### Proves
 
 Prova senzilla amb rails = 2
@@ -325,3 +327,149 @@ TEXT XIFRAT:  smeraretapieolrp
 TEXT ORIGINAL:  seraelpropermati
 ```
 
+## Xifrat i desxifrat d'una cadena concreta
+
+Es demana que es xifri i es desxifri un missatge en anglés amb uns paràmetres determinats per comprovar que els mètodes proposats funcionen correctament
+
+**Frase a provar:**
+
+it's the honky tonk women that gimme, gimme, gimme the honky tonk blues (honky tonk women, by the rolling stones)
+
+### Prova amb xifrat Cesar
+
+Desplaçament = 17
+
+```
+python cesar.py
+entreu un nombre natural corresponent al desplaçament: 17
+DESPLAÇAMENT:  17
+entra el text que vols xifrar: it's the honky tonk women that gimme, gimme, gimme the 
+honky tonk blues (honky tonk women, by the rolling stones)
+TEXT XIFRAT:  zk'j kyv yfebp kfeb nfdve kyrk xzddv, xzddv, xzddv kyv yfebp kfeb sclvj 
+(yfebp kfeb nfdve, sp kyv ifcczex jkfevj)
+TEXT ORIGINAL:  it's the honky tonk women that gimme, gimme, gimme the honky tonk blues
+(honky tonk women, by the rolling stones)
+```
+
+### Prova amb xifrat Polybios
+
+S'utilitza la taula amb col·lisions 5x5 amb la 'i' i la 'j' juntes.
+
+```
+python polybios.py
+Entra un nombre de files i columnes que compleixin num_files x num_columnes >=25
+Entra el nombre de files: 5
+Entra el nombra de columnes: 5
+entra el text que vols xifrar: it's the honky tonk women that gimme, gimme, gimme 
+the honky tonk blues (honky tonk women, by the rolling stones)
+TEXT XIFRAT:  BDDD'DC DDBCAE BCCDCCBEED DDCDCCBE EBCDCBAECC DDBCAADD BBBDCBCBAE, 
+BBBDCBCBAE, BBBDCBCBAE DDBCAE BCCDCCBEED DDCDCCBE ABCADEAEDC (BCCDCCBEED DDCDCCBE 
+EBCDCBAECC, ABED DDBCAE DBCDCACABDCCBB DCDDCDCCAEDC)
+TEXT ORIGINAL:  it's the honky tonk women that gimme, gimme, gimme the honky 
+tonk blues (honky tonk women, by the rolling stones)
+```
+
+
+### Prova de xifrat Rail Fence
+
+Número de rails = 7
+Recordar que el mètode proposat no discrimina entre lletres i simbols i per tant tots els caracters son codificats
+
+```
+python railFence.py
+entreu un nombre natural corresponent al rail: 7
+Rail:  7
+entra el text que vols xifrar: it's the honky tonk women that gimme, gimme, gimme 
+the honky tonk blues (honky tonk women, by the rolling stones)
+TEXT XIFRAT:  ikn,m (weotnye e meyt h oh tn'o mtmgi kosokmtrseshtohmigtnnenne o 
+s  owaim hokukonylg)ten tgm,eh lyt,blnhk e b  i
+TEXT ORIGINAL:  it's the honky tonk women that gimme, gimme, gimme the honky tonk 
+blues (honky tonk women, by the rolling stones)
+```
+
+## Criptoanàlisi
+
+[Veure fitxer criptoAnalisi.py](https://github.com/fxbp/spd-ex1/blob/master/criptoAnalisi.py)
+
+Es proposa el següent text per a ser analitzat i trencar la codificació. El text ha estat codificat en un dels 3 mètodes de xifrat anteriors. 
+
+xfimr litvxl. patm tkx px ebobgz yhk? tutgwhgxw ietvxl. b znxll px dghp max lvhkx. (lahp fnlm zh hg, ur jnxxg)
+
+### Pre-Anàlisi
+
+Es conegut que el text ha estat codificat en un dels 3 metodes anteriors. Sabent aquesta informació, mirant el text, podem descartar el mètode polibyos.
+
+El mètode polybios codifica cada un dels caràcters del text (només lletres) en coordenades XY. Tot i que en principi podrien estar codificades en minúscules (en comptes de majúscules com s'ha vist a classe) es pot observar que hi ha un caràcter 'b' que no te parella per tant aquest caràcter seria impossible de descodificar utilitzant el polybios. També podem veure que hi ha paraules de mida senar que tindrien el mateix problema.
+
+### Mètodes de trencament
+
+Com ja s'ha descartat un dels mètodes de codificació, es proposen 2 métodes per mirar de trencar el codi.
+
+#### Rail Fence
+
+El primer serà provar amb rail Fence. 
+Aquí el més simple és inicialitzar el nombre de rails a 2 i anar augmentant de forma que es pugui anar mirant si algun dels numeros de rail és la solució.
+
+Es proposa un mètode mostra per pantalla la solucio amb el num_rails actual i demana al usuari si vol provar amb un número de rails major.
+
+```
+python criptoAnalisi.py
+entra el text que vols analitzar: xfimr litvxl. patm tkx px ebobgz yhk? 
+tutgwhgxw ietvxl. b znxll px dghp max lvhkx. (lahp fnlm zh hg, ur jnxxg)
+Amb quin tipus de desxifrat vols provar d'analitzar? [c = cesar, r = Rail Fence,
+altres = finalitzar] r
+Desxifrat Rail Fence:
+Prova dexifrar num_rails = 2
+x fbi mzrn xllilt vpxxl .d gphapt mm atxk xl vphxk xe.b o(blgazh py hfkn?l mt 
+uzthg whhgg,x wu ri ejtnvxxxlg.)
+Vols provar amb mes rails? [s/n]s
+Desxifrat Rail Fence:
+Prova dexifrar num_rails = 3
+xo(bfglzi aymhhkr?p  t ultfgiwnhtglxvwm xi eltzv.xhl .  pbh azgntx,lml  
+puxt rdkg hxpj  mnapxx xlxv hgkex).b
+Vols provar amb mes rails? [s/n]s
+Desxifrat Rail Fence:
+Prova dexifrar num_rails = 4
+xtbm kfxz n ipxzlxm lh erbp xo b hdglzggh iyp, htkm a?v xu txulrvtlgh kw.hxj.g
+x n(wp lxaiaehxpttv gfxmln)l.
+Vols provar amb mes rails? [s/n]n
+Vols provar un altre tipus de desxifrat? [c = cesar, r = Rail Fence, altres = finalitzar] n
+```
+
+S'ha provat fins a un num_rail de 30 pero no dona cap text que sigui reconeixible en anglès.
+
+#### Mètode Cesar
+
+L'estratègia en aquest mètode es provar amb diferents desplaçaments de forma que algun d'ells porporcioni un text reconeixible en anglès.
+
+Per fer-ho s'utilitza la taula de freqüencies proporcionada a classe.
+Els pasos son:
+- Obtenir el caràcter amb més freqüencia del text codificat.
+- Ordenar la primera taula segons de mes a menor freqüencia.
+- Iterar per a cada un dels elements ordenats de la primera taula
+- Obtenir un desplaçament entre el caràcter amb més freqüencia del text codificat i el caràcter actual dels elements ordenats
+- Provar de descodificar el text amb el desplaçament obtingut
+
+Per a cada caràcter de la taula ordenada és mostra una posible solució de descodificació i es demana si es vol continuar provant.
+
+```
+python criptoAnalisi.py
+entra el text que vols analitzar: xfimr litvxl. patm tkx px ebobgz yhk? tutgwhgxw ietvxl. b znxll px dghp max lvhkx. (lahp fnlm zh hg, ur jnxxg)
+Amb quin tipus de desxifrat vols provar d'analitzar? [c = cesar, r = Rail Fence, altres = finalitzar] c
+e x
+Desxifrat Cesar:
+Provant desplaçament d =  19
+Text desxifrat:
+empty spaces. what are we living for? abandoned places. i guess we know the score. (show must go on, by queen)
+Vols provar una altre opcio? [s/n] n
+Vols provar un altre tipus de desxifrat? [c = cesar, r = Rail Fence, altres = finalitzar] n
+```
+
+Amb la primera iteració podem obtenir un text clar. tenim un desplaçament de 19 proporcionat per el caràcter amb més freqüència al text codificat 'x' comparat amb el caràcter amb més freqüència del alfabet anglès 'e'.
+
+### Resultat del CriptoAnàlisi
+
+Amb les proves realitzades es pot obtenir aquesta solució:
+
+Mètode de codificació: Cesar
+Desplaçament: b = 19
