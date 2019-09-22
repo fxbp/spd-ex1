@@ -37,6 +37,7 @@ def analitzaCesar(text, taulaFreq):
     while i < L and (resposta == "s" or resposta =="S"):
         maxTeo = sort[i]
         i += 1
+        print(maxTeo, maxFreq)
         despl = abs(ord(maxTeo)-ord(maxFreq))
         desxifrat=""
         for k in range(len(text)):
