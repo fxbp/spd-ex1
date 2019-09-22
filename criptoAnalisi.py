@@ -46,8 +46,7 @@ def analitzaCesar(text, taulaFreq):
         print("Provant desplaçament d = ", despl)
         print("Text desxifrat:")
         print(desxifrat)
-        resposta = input("Vols provar una altre opcio? [s/n] ")
-        print(k < L and (resposta == "s" or resposta =="S"))
+        resposta = input("Vols provar una altre opcio? [s/n] "
 
 def obtenirNovaPosicio(posicio, rail, desp, diff, mida):
     # calcula la seguent posicio en base al nombre de num_rails
