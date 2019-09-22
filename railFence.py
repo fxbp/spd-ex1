@@ -32,6 +32,8 @@ def codifica(missatge, num_rails):
     rail = 0;
     posicio = rail;
     desp = 2*num_rails -2
+    if num_rails==1:
+        desp = 1
     # desp son les posicions que ha de desplaçar el primer rail
     diff  = 0
     for k in range(len(missatge)):
@@ -46,6 +48,8 @@ def descodifica(missatge, num_rails):
     rail = 0;
     posicio = rail;
     desp = 2*num_rails -2
+    if num_rails==1:
+        desp = 1
     # desp son les posicions que ha de desplaçar el primer rail
     diff  = 0
     for k in range(len(missatge)):
