@@ -1,3 +1,4 @@
+
 # Exercici 1: Mètodes criptogràfics senzills
 
 ## Implementació dels mètodes criptogràfics
@@ -32,6 +33,7 @@ Per desxifrar un caràcter es fa la mateixa operació amb 1 canvi. En comptes de
 
 Es prova amb un text molt simple i desplaçament 1 per veure el correcte comportament modular.
 
+
 ```
 python cesar.py
 entreu un nombre natural corresponent al desplaçament: 1
@@ -48,7 +50,8 @@ Altres proves més complexes
 python cesar.py
 entreu un nombre natural corresponent al desplaçament: 8
 DESPLAÇAMENT:  8
-entra el text que vols xifrar: 8 Aquesta es una prova. Hi ha caracters que no son a-z (aquests caracters apareixen tal qual)
+entra el text que vols xifrar: 8 Aquesta es una prova. Hi ha caracters que no son a-z 
+(aquests caracters apareixen tal qual)
 TEXT XIFRAT:  8 iycmabi ma cvi xzwdi. pq pi kizikbmza ycm vw awv i-h (iycmaba kizikbmza ixizmqfmv bit ycit)
 TEXT ORIGINAL:  8 aquesta es una prova. hi ha caracters que no son a-z (aquests caracters apareixen tal qual)
 ```
@@ -98,7 +101,8 @@ if (files * columnes) < L and caracter >= 'j':
     segon = ((segon - 1) % columnes)
     if segon >=  (ord('j') - ord('a')) % columnes:
         # Com es colisiona la j, si la columna resultant es superior a la posicio de j:
-        # hem de fer que les files tirin 1 valor enrere. per ex en un 5x5 la K seria la posicio CA, pero ha de ser BE
+        # hem de fer que les files tirin 1 valor enrere. per ex en un 5x5 la K seria la posicio CA, 
+        # pero ha de ser BE
         primer =((primer -1) % columnes)
 ```
 
@@ -141,8 +145,10 @@ python polybios.py
 Entra un nombre de files i columnes que compleixin num_files x num_columnes >=25
 Entra el nombre de files: 5
 Entra el nombra de columnes: 5
-entra el text que vols xifrar: prova de polybios complexa. ja no es pot saber quin caracter de colisio es l'original
-TEXT XIFRAT:  CEDBCDEAAA ADAE CECDCAEDABBDCDDC ACCDCBCECAAEECAA. BDAA CCCD AEDC CECDDD DCAAABAEDB DADEBDCC ACAADBAAACDDAEDB ADAE ACCDCABDDCBDCD AEDC CA'CDDBBDBBBDCCAACA
+entra el text que vols xifrar: prova de polybios complexa. ja no es pot saber quin caracter de 
+colisio es l'original
+TEXT XIFRAT:  CEDBCDEAAA ADAE CECDCAEDABBDCDDC ACCDCBCECAAEECAA. BDAA CCCD AEDC CECDDD DCAAABAEDB
+DADEBDCC ACAADBAAACDDAEDB ADAE ACCDCABDDCBDCD AEDC CA'CDDBBDBBBDCCAACA
 TEXT ORIGINAL:  prova de polybios complexa. ia no es pot saber quin caracter de colisio es l'original
 ```
 
@@ -168,7 +174,8 @@ Entra un nombre de files i columnes que compleixin num_files x num_columnes >=25
 Entra el nombre de files: 5
 Entra el nombra de columnes: 6
 entra el text que vols xifrar: com ja no hi ha colisions, aquest text es pot descodificar perfectament.
-TEXT XIFRAT:  ACCCCA BDAA CBCC BBBC BBAA ACCCBFBCDABCCCCBDA, AACEDCAEDADB DBAEDFDB AEDA CDCCDB ADAEDAACCCADBCAFBCACAACF CDAECFAFAEACDBAACAAECBDB.
+TEXT XIFRAT:  ACCCCA BDAA CBCC BBBC BBAA ACCCBFBCDABCCCCBDA, AACEDCAEDADB DBAEDFDB AEDA CDCCDB 
+ADAEDAACCCADBCAFBCACAACF CDAECFAFAEACDBAACAAECBDB.
 TEXT ORIGINAL:  com ja no hi ha colisions, aquest text es pot descodificar perfectament.
 ```
 
