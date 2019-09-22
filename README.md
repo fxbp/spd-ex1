@@ -1,5 +1,8 @@
 
-# Exercici 1: Mètodes criptogràfics senzills
+# SPD - Exercici 1: Mètodes criptogràfics senzills
+
+**Autor:** Francesc Xavier Bullich Parra
+
 
 ## Implementació dels mètodes criptogràfics
 
@@ -41,7 +44,7 @@ DESPLAÇAMENT:  1
 entra el text que vols xifrar: a z
 TEXT XIFRAT:  b a
 TEXT ORIGINAL:  a z
-````
+```
 
 Com es pot comprovar amb un desplaçament = 1 la 'a' passa a ser 'b' i la 'z' es transforma en 'a' de forma correcta.
 
@@ -50,8 +53,7 @@ Altres proves més complexes
 python cesar.py
 entreu un nombre natural corresponent al desplaçament: 8
 DESPLAÇAMENT:  8
-entra el text que vols xifrar: 8 Aquesta es una prova. Hi ha caracters que no son a-z 
-(aquests caracters apareixen tal qual)
+entra el text que vols xifrar: 8 Aquesta es una prova. Hi ha caracters que no son a-z (aquests caracters apareixen tal qual)
 TEXT XIFRAT:  8 iycmabi ma cvi xzwdi. pq pi kizikbmza ycm vw awv i-h (iycmaba kizikbmza ixizmqfmv bit ycit)
 TEXT ORIGINAL:  8 aquesta es una prova. hi ha caracters que no son a-z (aquests caracters apareixen tal qual)
 ```
@@ -69,6 +71,7 @@ Es proposa una solució que permet codificar la taula en una mida de mínima de 
 Una possible solució seria actuar sobre una taula de 2 dimensions codificant a cada posició un dels possibles caràcters.
 S'haurà de tenir en compte alhora de crear-la de les possibles col·lisions.
 En el fitxer polybios.py hi ha un exemple de creació de taula tinguent en compte les col·lisions del 5x5.
+
 
 Aquesta solució permet:
 
@@ -101,8 +104,7 @@ if (files * columnes) < L and caracter >= 'j':
     segon = ((segon - 1) % columnes)
     if segon >=  (ord('j') - ord('a')) % columnes:
         # Com es colisiona la j, si la columna resultant es superior a la posicio de j:
-        # hem de fer que les files tirin 1 valor enrere. per ex en un 5x5 la K seria la posicio CA, 
-        # pero ha de ser BE
+        # hem de fer que les files tirin 1 valor enrere. per ex en un 5x5 la K seria la posicio CA,  pero ha de ser BE
         primer =((primer -1) % columnes)
 ```
 
@@ -145,10 +147,9 @@ python polybios.py
 Entra un nombre de files i columnes que compleixin num_files x num_columnes >=25
 Entra el nombre de files: 5
 Entra el nombra de columnes: 5
-entra el text que vols xifrar: prova de polybios complexa. ja no es pot saber quin caracter de 
-colisio es l'original
-TEXT XIFRAT:  CEDBCDEAAA ADAE CECDCAEDABBDCDDC ACCDCBCECAAEECAA. BDAA CCCD AEDC CECDDD DCAAABAEDB
-DADEBDCC ACAADBAAACDDAEDB ADAE ACCDCABDDCBDCD AEDC CA'CDDBBDBBBDCCAACA
+entra el text que vols xifrar: prova de polybios complexa. ja no es pot saber quin caracter de colisio es l'original
+TEXT XIFRAT:  CEDBCDEAAA ADAE CECDCAEDABBDCDDC ACCDCBCECAAEECAA. BDAA CCCD AEDC CECDDD DCAAABAEDB DADEBDCC ACAADBAAACDDAEDB
+ADAE ACCDCABDDCBDCD AEDC CA'CDDBBDBBBDCCAACA
 TEXT ORIGINAL:  prova de polybios complexa. ia no es pot saber quin caracter de colisio es l'original
 ```
 
@@ -166,7 +167,7 @@ TEXT XIFRAT:  AA AB AC BC BD BE BF CA CB EB
 TEXT ORIGINAL:  a b c i j k l m n z
 ```
 
-Prova simple per comprovar com ara ja no hi ha col·lisio. També es pot veure que com hi ha més columnes disponibles ara la 'l' està a la mateixa fila que la 'j' i la 'k'. 
+Prova simple per comprovar com ara ja no hi ha col·lisio. També es pot veure que com hi ha més columnes disponibles ara la 'l' està a la mateixa fila que la 'j' i la 'k'.
 
 ```
 python polybios.py
@@ -174,8 +175,7 @@ Entra un nombre de files i columnes que compleixin num_files x num_columnes >=25
 Entra el nombre de files: 5
 Entra el nombra de columnes: 6
 entra el text que vols xifrar: com ja no hi ha colisions, aquest text es pot descodificar perfectament.
-TEXT XIFRAT:  ACCCCA BDAA CBCC BBBC BBAA ACCCBFBCDABCCCCBDA, AACEDCAEDADB DBAEDFDB AEDA CDCCDB 
-ADAEDAACCCADBCAFBCACAACF CDAECFAFAEACDBAACAAECBDB.
+TEXT XIFRAT:  ACCCCA BDAA CBCC BBBC BBAA ACCCBFBCDABCCCCBDA, AACEDCAEDADB DBAEDFDB AEDA CDCCDB ADAEDAACCCADBCAFBCACAACF CDAECFAFAEACDBAACAAECBDB.
 TEXT ORIGINAL:  com ja no hi ha colisions, aquest text es pot descodificar perfectament.
 ```
 
@@ -197,27 +197,28 @@ Creació de la taula de rail = 4
 |   |   |   | a |   |   |   |   |   | p |   |   |   |   |   | i |
 
 Si s'observa la taula es pot trobar un patrò que permet calculàr quina seria la següent posició.
-En la primera fila podem trobar quin es el desplaçament des del primer caràcter fins el segon. Aquest es pot trobar a partir del nombre de rails. En aquest cas es de 6 posicions. 
+En la primera fila podem trobar quin es el desplaçament des del primer caràcter fins el segon. Aquest es pot trobar a partir del nombre de rails. En aquest cas es de 6 posicions.
 Es defineix un desplaçament de 2xnombre_rails -2
 Aquest desplaçament també es pot veure en l'última fila.
 
 Els rails intermitjos peró no segueixen aquesta regla. Com es pot observar hi ha 2 mides de desplaçament entre els caràcters d'un rail.
 S'observa el segon rail. De la 'e' a la 'l' hi ha un desplaçament de 4, mentre de de la 'l' a la 'r' hi ha un desplaçament de 2 posicions. El tercer rail també segueix aquest patró amb desplaçaments diferents.
 
-Podem trobar el primer desplaçament amb la mateixa formula anterior [2xnombre_rails-2] - num_rail_actualx2 
+Podem trobar el primer desplaçament amb la mateixa formula anterior [2xnombre_rails-2] - num_rail_actualx2
 El segon desplaçament s'obte amb num_rail_actualx2
 
 Nota: el numero de rail actual esta entre 0 (pel primer rail) i 3 (per l'últim)
 
 Comprovació:
 
-- Desplaçament e -l (segon rail): 
+- Desplaçament e -l (segon rail):
 ```
    (num segon rail = 1)
    primer desplaçament = 2*4-2 - 2*1 = 4
-   
+
    segon desplaçament = 2*1 = 2
 ```
+
 
 Si es van alternant aquests desplaçaments es poden anar generan les posicions corresponents a cada rail.
 
@@ -236,7 +237,7 @@ S'observa el 3er rail:
 ```
    (num tercer rail = 2)
    primer desplaçament = 2*7-2 - 2*2 = 8
-   
+
    segon desplaçament = 2*2= 4
 ```
 
@@ -248,7 +249,7 @@ S'utilitza la següent funció per obtenir la seguent posició segons aquests de
 
 desp sempre és 2xnum_rails-2
 diff val el desplaçament anterior. Es va alternant entre primer i segon desplaçament
-mida es la llargada de la cadena 
+mida es la llargada de la cadena
 ```
 def obtenirNovaPosicio(posicio, rail, desp, diff, mida):
     # calcula la seguent posicio en base al nombre de num_rails
@@ -286,7 +287,7 @@ for k in range(len(missatge)):
         desxifrat[posicio] = missatge[k]
         posicio, rail, diff = obtenirNovaPosicio(posicio,rail, desp, diff, len(missatge))
 ```
-r
+
 
 Tal i com esta pensada la formula només serveix per num_rails > 1. Tot i que no te massa sentit tenir 1 rail (el missatge codificat = original) es corregeix el desplaçament a 1 si es demana num_rails = 1.
 
@@ -343,12 +344,9 @@ Desplaçament = 17
 python cesar.py
 entreu un nombre natural corresponent al desplaçament: 17
 DESPLAÇAMENT:  17
-entra el text que vols xifrar: it's the honky tonk women that gimme, gimme, gimme the 
-honky tonk blues (honky tonk women, by the rolling stones)
-TEXT XIFRAT:  zk'j kyv yfebp kfeb nfdve kyrk xzddv, xzddv, xzddv kyv yfebp kfeb sclvj 
-(yfebp kfeb nfdve, sp kyv ifcczex jkfevj)
-TEXT ORIGINAL:  it's the honky tonk women that gimme, gimme, gimme the honky tonk blues
-(honky tonk women, by the rolling stones)
+entra el text que vols xifrar: it's the honky tonk women that gimme, gimme, gimme the honky tonk blues (honky tonk women, by the rolling stones)
+TEXT XIFRAT:  zk'j kyv yfebp kfeb nfdve kyrk xzddv, xzddv, xzddv kyv yfebp kfeb sclvj (yfebp kfeb nfdve, sp kyv ifcczex jkfevj)
+TEXT ORIGINAL:  it's the honky tonk women that gimme, gimme, gimme the honky tonk blues (honky tonk women, by the rolling stones)
 ```
 
 ### Prova amb xifrat Polybios
@@ -360,13 +358,10 @@ python polybios.py
 Entra un nombre de files i columnes que compleixin num_files x num_columnes >=25
 Entra el nombre de files: 5
 Entra el nombra de columnes: 5
-entra el text que vols xifrar: it's the honky tonk women that gimme, gimme, gimme 
-the honky tonk blues (honky tonk women, by the rolling stones)
-TEXT XIFRAT:  BDDD'DC DDBCAE BCCDCCBEED DDCDCCBE EBCDCBAECC DDBCAADD BBBDCBCBAE, 
-BBBDCBCBAE, BBBDCBCBAE DDBCAE BCCDCCBEED DDCDCCBE ABCADEAEDC (BCCDCCBEED DDCDCCBE 
-EBCDCBAECC, ABED DDBCAE DBCDCACABDCCBB DCDDCDCCAEDC)
-TEXT ORIGINAL:  it's the honky tonk women that gimme, gimme, gimme the honky 
-tonk blues (honky tonk women, by the rolling stones)
+entra el text que vols xifrar: it's the honky tonk women that gimme, gimme, gimme the honky tonk blues (honky tonk women, by the rolling stones)
+TEXT XIFRAT:  BDDD'DC DDBCAE BCCDCCBEED DDCDCCBE EBCDCBAECC DDBCAADD BBBDCBCBAE, BBBDCBCBAE, BBBDCBCBAE DDBCAE BCCDCCBEED DDCDCCBE ABCADEAEDC
+(BCCDCCBEED DDCDCCBE EBCDCBAECC, ABED DDBCAE DBCDCACABDCCBB DCDDCDCCAEDC)
+TEXT ORIGINAL:  it's the honky tonk women that gimme, gimme, gimme the honky tonk blues (honky tonk women, by the rolling stones)
 ```
 
 
@@ -379,19 +374,16 @@ Recordar que el mètode proposat no discrimina entre lletres i simbols i per tan
 python railFence.py
 entreu un nombre natural corresponent al rail: 7
 Rail:  7
-entra el text que vols xifrar: it's the honky tonk women that gimme, gimme, gimme 
-the honky tonk blues (honky tonk women, by the rolling stones)
-TEXT XIFRAT:  ikn,m (weotnye e meyt h oh tn'o mtmgi kosokmtrseshtohmigtnnenne o 
-s  owaim hokukonylg)ten tgm,eh lyt,blnhk e b  i
-TEXT ORIGINAL:  it's the honky tonk women that gimme, gimme, gimme the honky tonk 
-blues (honky tonk women, by the rolling stones)
+entra el text que vols xifrar: it's the honky tonk women that gimme, gimme, gimme the honky tonk blues (honky tonk women, by the rolling stones)
+TEXT XIFRAT:  ikn,m (weotnye e meyt h oh tn'o mtmgi kosokmtrseshtohmigtnnenne o s  owaim hokukonylg)ten tgm,eh lyt,blnhk e b  i
+TEXT ORIGINAL:  it's the honky tonk women that gimme, gimme, gimme the honky tonk blues (honky tonk women, by the rolling stones)
 ```
 
 ## Criptoanàlisi
 
 [Veure fitxer criptoAnalisi.py](https://github.com/fxbp/spd-ex1/blob/master/criptoAnalisi.py)
 
-Es proposa el següent text per a ser analitzat i trencar la codificació. El text ha estat codificat en un dels 3 mètodes de xifrat anteriors. 
+Es proposa el següent text per a ser analitzat i trencar la codificació. El text ha estat codificat en un dels 3 mètodes de xifrat anteriors.
 
 xfimr litvxl. patm tkx px ebobgz yhk? tutgwhgxw ietvxl. b znxll px dghp max lvhkx. (lahp fnlm zh hg, ur jnxxg)
 
@@ -407,31 +399,26 @@ Com ja s'ha descartat un dels mètodes de codificació, es proposen 2 métodes p
 
 #### Rail Fence
 
-El primer serà provar amb rail Fence. 
+El primer serà provar amb rail Fence.
 Aquí el més simple és inicialitzar el nombre de rails a 2 i anar augmentant de forma que es pugui anar mirant si algun dels numeros de rail és la solució.
 
 Es proposa un mètode mostra per pantalla la solucio amb el num_rails actual i demana al usuari si vol provar amb un número de rails major.
 
 ```
 python criptoAnalisi.py
-entra el text que vols analitzar: xfimr litvxl. patm tkx px ebobgz yhk? 
-tutgwhgxw ietvxl. b znxll px dghp max lvhkx. (lahp fnlm zh hg, ur jnxxg)
-Amb quin tipus de desxifrat vols provar d'analitzar? [c = cesar, r = Rail Fence,
-altres = finalitzar] r
+entra el text que vols analitzar: xfimr litvxl. patm tkx px ebobgz yhk? tutgwhgxw ietvxl. b znxll px dghp max lvhkx. (lahp fnlm zh hg, ur jnxxg)
+Amb quin tipus de desxifrat vols provar d'analitzar? [c = cesar, r = Rail Fence, altres = finalitzar] r
 Desxifrat Rail Fence:
 Prova dexifrar num_rails = 2
-x fbi mzrn xllilt vpxxl .d gphapt mm atxk xl vphxk xe.b o(blgazh py hfkn?l mt 
-uzthg whhgg,x wu ri ejtnvxxxlg.)
+x fbi mzrn xllilt vpxxl .d gphapt mm atxk xl vphxk xe.b o(blgazh py hfkn?l mt uzthg whhgg,x wu ri ejtnvxxxlg.)
 Vols provar amb mes rails? [s/n]s
 Desxifrat Rail Fence:
 Prova dexifrar num_rails = 3
-xo(bfglzi aymhhkr?p  t ultfgiwnhtglxvwm xi eltzv.xhl .  pbh azgntx,lml  
-puxt rdkg hxpj  mnapxx xlxv hgkex).b
+xo(bfglzi aymhhkr?p  t ultfgiwnhtglxvwm xi eltzv.xhl .  pbh azgntx,lml  puxt rdkg hxpj  mnapxx xlxv hgkex).b
 Vols provar amb mes rails? [s/n]s
 Desxifrat Rail Fence:
 Prova dexifrar num_rails = 4
-xtbm kfxz n ipxzlxm lh erbp xo b hdglzggh iyp, htkm a?v xu txulrvtlgh kw.hxj.g
-x n(wp lxaiaehxpttv gfxmln)l.
+xtbm kfxz n ipxzlxm lh erbp xo b hdglzggh iyp, htkm a?v xu txulrvtlgh kw.hxj.g x n(wp lxaiaehxpttv gfxmln)l.
 Vols provar amb mes rails? [s/n]n
 Vols provar un altre tipus de desxifrat? [c = cesar, r = Rail Fence, altres = finalitzar] n
 ```
@@ -450,20 +437,18 @@ Els pasos son:
 - Obtenir un desplaçament entre el caràcter amb més freqüencia del text codificat i el caràcter actual dels elements ordenats
 - Provar de descodificar el text amb el desplaçament obtingut
 
+
 Per a cada caràcter de la taula ordenada és mostra una posible solució de descodificació i es demana si es vol continuar provant.
 
 ```
 python criptoAnalisi.py
-entra el text que vols analitzar: xfimr litvxl. patm tkx px ebobgz yhk? tutgwhgxw ietvxl. 
-b znxll px dghp max lvhkx. (lahp fnlm zh hg, ur jnxxg)
-Amb quin tipus de desxifrat vols provar d'analitzar? 
-[c = cesar, r = Rail Fence, altres = finalitzar] c
+entra el text que vols analitzar: xfimr litvxl. patm tkx px ebobgz yhk? tutgwhgxw ietvxl. b znxll px dghp max lvhkx. (lahp fnlm zh hg, ur jnxxg)
+Amb quin tipus de desxifrat vols provar d'analitzar? [c = cesar, r = Rail Fence, altres = finalitzar] c
 e x
 Desxifrat Cesar:
 Provant desplaçament d =  19
 Text desxifrat:
-empty spaces. what are we living for? abandoned places. i guess we know the score. 
-(show must go on, by queen)
+empty spaces. what are we living for? abandoned places. i guess we know the score. (show must go on, by queen)
 Vols provar una altre opcio? [s/n] n
 Vols provar un altre tipus de desxifrat? [c = cesar, r = Rail Fence, altres = finalitzar] n
 ```
