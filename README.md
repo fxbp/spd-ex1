@@ -454,13 +454,16 @@ Per a cada caràcter de la taula ordenada és mostra una posible solució de des
 
 ```
 python criptoAnalisi.py
-entra el text que vols analitzar: xfimr litvxl. patm tkx px ebobgz yhk? tutgwhgxw ietvxl. b znxll px dghp max lvhkx. (lahp fnlm zh hg, ur jnxxg)
-Amb quin tipus de desxifrat vols provar d'analitzar? [c = cesar, r = Rail Fence, altres = finalitzar] c
+entra el text que vols analitzar: xfimr litvxl. patm tkx px ebobgz yhk? tutgwhgxw ietvxl. 
+b znxll px dghp max lvhkx. (lahp fnlm zh hg, ur jnxxg)
+Amb quin tipus de desxifrat vols provar d'analitzar? 
+[c = cesar, r = Rail Fence, altres = finalitzar] c
 e x
 Desxifrat Cesar:
 Provant desplaçament d =  19
 Text desxifrat:
-empty spaces. what are we living for? abandoned places. i guess we know the score. (show must go on, by queen)
+empty spaces. what are we living for? abandoned places. i guess we know the score. 
+(show must go on, by queen)
 Vols provar una altre opcio? [s/n] n
 Vols provar un altre tipus de desxifrat? [c = cesar, r = Rail Fence, altres = finalitzar] n
 ```
